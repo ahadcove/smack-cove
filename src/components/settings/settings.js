@@ -43,7 +43,7 @@ const CoronaSettings = ({ close }) => {
 	}
 
 	const test = async () => {
-		apiTrigger(apiType, apiValue);
+		apiTrigger();
 	}
 
 	return (

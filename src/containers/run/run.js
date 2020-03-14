@@ -18,9 +18,6 @@ const Run = () => {
 		};
 	}, []);
 
-	const [apiOn] = usePersistedState('apiOn', true);
-	const [apiType] = usePersistedState('apiType');
-	const [apiValue] = usePersistedState('apiValue');
 	const [minConfidence] = usePersistedState('minConfidence', 70);
 
 	const [started, setStarted] = useState(false);
@@ -90,10 +87,7 @@ const Run = () => {
 
 	const checkPrediction = (result) => {
 		if (result.label === 'touching' && minConfidence >= result.confidence) {
-			if (apiOn) {
-				console.log('Triggering api');
-				apiTrigger(apiType, apiValue);
-			}
+			apiTrigger();
 		}
 	};
 

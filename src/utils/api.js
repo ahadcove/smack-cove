@@ -7,15 +7,24 @@ export const API_TYPES = {
 
 let audioPlayer;
 
-export const apiTrigger = async (apiType, apiValue) => {
-	console.log('Triggering api: ', apiType, apiValue);
-	if (apiType === API_TYPES.API) {
-		await axios(apiValue);
-	} else {
-		apiStop();
+export const apiTrigger = async () => {
+	const apiOn = localStorage.getItem('apiOn');
+	const apiType = localStorage.getItem('apiType');
+	const apiValue = JSON.parse(localStorage.getItem('apiValue'));
+	console.log('apiOn: ', apiOn);
+	console.log('apiType: ', apiType);
+	console.log('apiValue: ', apiValue);
 
-		audioPlayer = new Audio(apiValue.url);
-		audioPlayer.play();
+	if (apiOn) {
+		console.log('Triggering api: ', apiType, apiValue);
+		if (apiType === API_TYPES.API) {
+			await axios(apiValue);
+		} else {
+			apiStop();
+
+			audioPlayer = new Audio(apiValue.url);
+			audioPlayer.play();
+		}
 	}
 }
 
