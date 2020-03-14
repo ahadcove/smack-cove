@@ -1,0 +1,1 @@
+export const friendlyNumber = (number) => Math.floor(number * 10000) / 100

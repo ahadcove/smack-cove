@@ -1,0 +1,176 @@
+body {
+	text-align: center;
+	background-color: #2a292d;
+	color: white;
+	width: 100vw;
+	overflow-x: hidden;
+}
+
+.App-logo {
+	height: 40vmin;
+	pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.App-logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
+}
+
+.App-header {
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
+}
+
+.App-link {
+	color: #61dafb;
+}
+
+a:visited {
+	color: inherit;
+}
+
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+ul {
+	display: flex;
+	list-style: none;
+}
+
+.title {
+	margin-bottom: 30px;
+}
+
+.sub-title {
+	margin-bottom: 20px;
+}
+
+.btn-cta {
+  background-color: #1b7576;
+}
+
+.btn-error {
+  background-color: red;
+}
+
+.btn {
+	display: inline;
+	margin: 10px;
+	padding: 10px 20px;
+	line-height: 50px;
+	text-align: center;
+	/* width: 250px; */
+	/* height: 50px; */
+	cursor: pointer;
+	color: #fff;
+	transition: all 0.5s;
+	position: relative;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none;
+}
+
+.btn::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background-color: rgba(255, 255, 255, 0.1);
+	transition: all 0.3s;
+}
+.btn:hover::before {
+	opacity: 0;
+	transform: scale(0.5, 0.5);
+}
+.btn::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	opacity: 0;
+	transition: all 0.3s;
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	transform: scale(1.2, 1.2);
+}
+.btn:hover::after {
+	opacity: 1;
+	transform: scale(1, 1);
+}
+
+.switch-btn {
+	background-color: 'transparent';
+	padding: 6px;
+	border: solid white 1px;
+	cursor: pointer;
+
+	/* &[disabled] {
+		filter: brightness(0.8);
+		text-decoration: line-through;
+	}
+
+	&:focus {
+			outline:none;
+	}
+
+	&:not([disabled]):not(.disabled):active,
+	&:not([disabled]):not(.disabled).active {
+		border: solid 1px ${Colors.text[theme]};
+	} */
+}
+
+.switch-btn[ison='true'] {
+	background-color: #1b7576;
+}
+
+input {
+	text-align: center;
+	padding: 8px 8px;
+	border: solid 1px #4f5e65;
+	border-radius: 4px;
+	box-shadow: none;
+	background: transparent;
+	color: #eaeeef;
+}
+
+input:focus {
+	outline: auto;
+}
+
+.center {
+  height: 100%;
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.center .row {
+	justify-content: center;
+}
+
+.center .column {
+	align-items: center;
+}

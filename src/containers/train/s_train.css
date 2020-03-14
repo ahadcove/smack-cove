@@ -1,0 +1,24 @@
+title {
+	font-size: 30px;
+}
+
+.status-contain {
+	color: #ff6b00;
+}
+
+.count-contain {
+	font-size: 1.4rem;
+	font-weight: 800;
+	text-transform: capitalize;
+	margin-bottom: 20px;
+}
+
+.training-modal-contain {
+	padding: 30px 50px;
+}
+
+.reset-btn {
+	position: absolute !important;
+	bottom: 0;
+	right: 0;
+}

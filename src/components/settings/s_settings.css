@@ -1,0 +1,13 @@
+.settings {
+	text-align: center;
+}
+
+.settings-section {
+	margin-bottom: 40px;
+}
+
+.test-btn {
+	position: absolute !important;
+	top: 0;
+	right: 0;
+}

@@ -1,0 +1,22 @@
+nav {
+  background-color: rgba(0, 162, 162, .6);
+	height: 5vh;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 2vh;
+	padding: 0 20px;
+}
+
+.icon {
+	cursor: pointer;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+a:active {
+
+}

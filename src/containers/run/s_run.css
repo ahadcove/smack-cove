@@ -1,0 +1,12 @@
+#video {
+	height: 100%;
+	max-width: 90vw;
+	margin-bottom: 4vh;
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+.prediction-contain {
+	font-size: 1.4rem;
+	font-weight: 800;
+	text-transform: capitalize;
+}
