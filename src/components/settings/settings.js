@@ -36,7 +36,6 @@ const CoronaSettings = ({ close }) => {
 
 		const audioUrl = URL.createObjectURL(audioFile);
 		
-		console.log('selectedAudio: ', audioUrl);
 		if (audioUrl) {
 			setApiValue({ name: audioFile.name, url: audioUrl, volume: 100 });
 		}

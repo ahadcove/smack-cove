@@ -37,15 +37,12 @@ const Run = () => {
 			video.play();
 
 			// Initialize the Image Classifier method with MobileNet
-
-			console.log('React Root Url: ', `${process.env.REACT_APP_ROOT_URL}/model.json`);
 			let classifier;
 			if (localStorage.getItem("ml5Specs") === null) {
 				classifier = await ml5.imageClassifier(`${process.env.REACT_APP_ROOT_URL}/model.json`, video);
 			} else {
 				try {
 					classifier = await ml5.imageClassifier('indexeddb://model', video);
-					console.log('Model loaded from storage');
 				} catch (err) {
 					// TODO: get model from url if there isn't one saved
 					console.error('No model exists');
@@ -65,12 +62,10 @@ const Run = () => {
 		recurseInterval = new Interval(async () => {
 			try {
 				const results = await classifier.classify();
-				console.log('results: ', results);
-
 				checkPrediction(results[0]);
 				setPredictions(results);
 			} catch (err) {
-				console.log('Classify err: ', err);
+				console.error('Classify err: ', err);
 			}
 		}, 200);
 	};

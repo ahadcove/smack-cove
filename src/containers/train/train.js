@@ -66,11 +66,9 @@ const Run = ({ bindShortcut, unbindAllShortcuts }) => {
 
 		if (localStorage.getItem("ml5Specs") === null) {
 			await classifier.load(`${process.env.REACT_APP_ROOT_URL}/model.json`);
-			console.log('Model loaded from storage');
 		} else {
 			try {
 				await classifier.load('indexeddb://model');
-				console.log('Model loaded from storage');
 				setFirstOpen(false);
 			} catch (err) {
 				console.error('No model exists');
@@ -80,7 +78,6 @@ const Run = ({ bindShortcut, unbindAllShortcuts }) => {
 
 		setClassifier(classifier);
 		setReady(true);
-		console.log('Ready');
 	};
 
 	const saveImage = (label) => {
@@ -114,7 +111,6 @@ const Run = ({ bindShortcut, unbindAllShortcuts }) => {
 	};
 
 	const testModel = () => {
-		console.log('testModel');
 		setTesting(true);
 
 		Clear(testingInterval);
@@ -147,8 +143,6 @@ const Run = ({ bindShortcut, unbindAllShortcuts }) => {
 		if (upload) {
 			const dt = new Date().toISOString();
 			classifier.save(null, `${process.env.REACT_APP_ROOT_URL}/api/upload?dt=${dt}`);
-		} else {
-			console.log('Model Saved');
 		}
 
 		classifier.save(() => {
