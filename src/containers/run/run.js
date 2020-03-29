@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import * as ml5 from 'ml5';
+import * as ml5 from 'ml5-cove';
 import { Interval, Clear, Timeout } from 'bettertimers';
 import { friendlyNumber } from '../../utils/utils';
 import { apiTrigger, apiStop } from '../../utils/api';
@@ -7,7 +7,6 @@ import usePersistedState from '../../utils/persist-state';
 import './s_run.css';
 
 let recurseInterval;
-
 const Run = () => {
 	useEffect(() => {
 		apiStop();
@@ -30,7 +29,6 @@ const Run = () => {
 	};
 
 	const setup = async () => {
-		// Grab elements, create settings, etc.
 		const video = document.getElementById('video');
 
 		// Create a webcam capture
@@ -39,61 +37,53 @@ const Run = () => {
 			video.play();
 
 			// Initialize the Image Classifier method with MobileNet
-			// const classifier = await ml5.imageClassifier('MobileNet', video);
-			// const classifier = await ml5.imageClassifier('indexeddb://model', video);
-			console.log('process.env.PUBLIC_URL: ', process.env.PUBLIC_URL);
-			const classifier = await ml5.imageClassifier(process.env.PUBLIC_URL + '/model.json', video);
-			
-			// const featureExtractor = await ml5.featureExtractor('MobileNet');
-			// // const classifier = await featureExtractor.classification(video, { numLabels: 2 });
-			// const classifier = await featureExtractor.classification(video);
 
-			try {
-				// await classifier.loadLocal('indexeddb://model');
-				// classifier.load('./model.json', () => {
-				// 	console.log('Model loaded from storage');
-					
-				// });
-			} catch (err) {
-				console.warn('No model exists');
+			console.log('React Root Url: ', `${process.env.REACT_APP_ROOT_URL}/model.json`);
+			let classifier;
+			if (localStorage.getItem("ml5Specs") === null) {
+				classifier = await ml5.imageClassifier(`${process.env.REACT_APP_ROOT_URL}/model.json`, video);
+			} else {
+				try {
+					classifier = await ml5.imageClassifier('indexeddb://model', video);
+					console.log('Model loaded from storage');
+				} catch (err) {
+					// TODO: get model from url if there isn't one saved
+					console.error('No model exists');
+					classifier = await ml5.imageClassifier(`${process.env.REACT_APP_ROOT_URL}/model.json`, video);
+				}
 			}
 
 			new Timeout(() => {
 				recurseVideo(classifier);
-			}, 3000);
+			}, 1000);
 		});
 	};
 
 	const recurseVideo = (classifier) => {
 		Clear(recurseInterval);
+		
 		recurseInterval = new Interval(async () => {
 			try {
-				// // Put the image to classify inside a variable
-				// const image = document.getElementById('image');
-
-				// Make a prediction with a selected image
-				// classifier.classify(image, 5, function(err, results) {
 				const results = await classifier.classify();
 				console.log('results: ', results);
-				// Set the predictions in the state
 
 				checkPrediction(results[0]);
 				setPredictions(results);
 			} catch (err) {
 				console.log('Classify err: ', err);
 			}
-		}, 1000);
+		}, 200);
 	};
 
 	const checkPrediction = (result) => {
-		if (result.label === 'touching' && minConfidence >= result.confidence) {
+		if (result.label === 'touching' && ((minConfidence || 70) >= result.confidence)) {
 			apiTrigger();
 		}
 	};
 
 	return (
 		<div onClick={start}>
-			<h1 className='title'>Corona Bot</h1>
+			<h1 className='title'>Smacker Cove</h1>
 			{!started && <div>Click anywhere to Start</div>}
 			<video id='video' width='640' height='480' autoPlay></video>
 			{predictions.length > 0 && (

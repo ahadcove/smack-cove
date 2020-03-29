@@ -1,68 +1,87 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Smacker Cove - The End of Face Touching
 
-## Available Scripts
+<p align="center">
+    <a href="https://smack.ahadcove.com" target="_blank">
+      <img src="public/logo.gif" alt="Smack Cove Logo" width="55%"/>
+    </a>
+</p>
 
-In the project directory, you can run:
+Smack Cove is the end of face touching as we know it.
+Checkout the full video on [Youtube](https://youtu.be/HZTN56UPgkM).
 
-### `yarn start`
+[![IMAGE ALT TEXT](http://i3.ytimg.com/vi/HZTN56UPgkM/maxresdefault.jpg)](http://www.youtube.com/watch?v=HZTN56UPgkM "Creating The Corona Smacker")
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Ever wondered why you can't stop touching your face even though you know it could cause harm right now while the corona virus is around?! Well so did we.... So that's why we made Smack Cove!
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## [Live-Site](https://smack.ahadcove.com)
 
-### `yarn test`
+<p align="center">
+  <a href="https://smack.ahadcove.com" target="_blank">
+    <img src="public/screenshots/website1.png" alt="Smack Cove Screenshot 1" width="90%"/>
+  </a>
+</p>
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## Build Setup
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+``` bash
+# Clone the repo
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+# install dependencies
+npm install
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Run locally
+npm run start
 
-### `yarn eject`
+# build for production with minification
+npm run build
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Running 
+Run the app in the development mode with **npm run start**.<br />
+Open [http://localhost:1919](http://localhost:1919) to view it in the browser.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Features
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Training
 
-## Learn More
+<p align="center">
+  <a href="https://smack.ahadcove.com" target="_blank">
+    <img src="public/screenshots/training.png" alt="Smack Cove Training" width="90%"/>
+  </a>
+</p>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You'll have the ability to train your own classifier by opeining up the Train tab in the nav bar.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Once here you can collect images that show you **Touching** and **Not Touching**
 
-### Code Splitting
+After you're done collecting a sufficient amount of images you click Train.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+You'll be given the option to **Test** or to **Save**.
 
-### Analyzing the Bundle Size
+After you save your custom model will be ready to use.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### Trigger API
 
-### Making a Progressive Web App
+When Smack Cove classifies you as Touching you may want it to react a certain way.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+You can determine what happens when you're touching by clicking the cog icon in the top right of the Nav bar.
 
-### Advanced Configuration
+Here you'll have two API options: **Sound** and **API**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+If you click **Sound** the audio file will play every time you touch your face
 
-### Deployment
+If you select the **API** option you'll be able to make a get request to wherever you want.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+In the Youtube video we made it send a get request to our raspberry pi to trigger our Corona Smacker.
 
-### `yarn build` fails to minify
+<p align="center">
+  <a href="https://smack.ahadcove.com" target="_blank">
+    <img src="public/screenshots/hit.gif" alt="Smack Cove Hit" width="90%"/>
+  </a>
+</p>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Running
+
+Now you're ready to head back to the home page and test things out :)

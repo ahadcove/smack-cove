@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import * as ml5 from 'ml5';
+import * as ml5 from 'ml5-cove';
 import { Interval, Clear } from 'bettertimers';
 import * as Mousetrap from 'mousetrap';
 import { friendlyNumber } from '../../utils/utils';
@@ -44,7 +44,7 @@ const Run = ({ bindShortcut, unbindAllShortcuts }) => {
 		return () => {
 			Mousetrap.reset();
 		};
-	}, [ready, touchCount, notTouchCount]);
+	}, [classifier, ready, touchCount, notTouchCount]);
 
 	// Browser may not allow video to play until user interacts with app
 	const start = () => {
@@ -64,16 +64,19 @@ const Run = ({ bindShortcut, unbindAllShortcuts }) => {
 		const featureExtractor = await ml5.featureExtractor('MobileNet');
 		const classifier = await featureExtractor.classification(video, { numLabels: 2 });
 
-		try {
-			await classifier.loadLocal('indexeddb://model');
-			// await classifier.load('./');
-			setFirstOpen(false);
+		if (localStorage.getItem("ml5Specs") === null) {
+			await classifier.load(`${process.env.REACT_APP_ROOT_URL}/model.json`);
 			console.log('Model loaded from storage');
-		} catch (err) {
-			// TODO: get model from url if there isn't one saved
-			console.warn('No model exists');
+		} else {
+			try {
+				await classifier.load('indexeddb://model');
+				console.log('Model loaded from storage');
+				setFirstOpen(false);
+			} catch (err) {
+				console.error('No model exists');
+				await classifier.load(`${process.env.REACT_APP_ROOT_URL}/model.json`);
+			}
 		}
-
 
 		setClassifier(classifier);
 		setReady(true);
@@ -82,8 +85,6 @@ const Run = ({ bindShortcut, unbindAllShortcuts }) => {
 
 	const saveImage = (label) => {
 		if (ready) {
-			console.log('saveImage: ', label);
-
 			if (label === LABELS.touching) {
 				setTouchCount(touchCount + 1);
 			} else {
@@ -144,24 +145,23 @@ const Run = ({ bindShortcut, unbindAllShortcuts }) => {
 
 	const save = async(upload = false) => {
 		if (upload) {
-			console.log('Updload');
+			const dt = new Date().toISOString();
+			classifier.save(null, `${process.env.REACT_APP_ROOT_URL}/api/upload?dt=${dt}`);
 		} else {
 			console.log('Model Saved');
 		}
 
-		// classifier.saveLocal(() => {
-		classifier.saveLocal(() => {
+		classifier.save(() => {
 			console.log('Model Saved');
 			setSaveModalOpen(false);
 		}, 'indexeddb://model');
 
-		await classifier.save();
 		setSaveModalOpen(false);
 	}
 
 	return (
 		<div>
-			<h1 className='title'>Train your model</h1>
+			<h1 className='title'>Train Your Model</h1>
 			<div className='status-contain'>{status}</div>
 			{!ready && (
 				<div className='btn btn-cta' onClick={start}>
@@ -179,7 +179,7 @@ const Run = ({ bindShortcut, unbindAllShortcuts }) => {
 			{ready && (
 				<>
 					<div className='count-contain'>
-						Touching: {touchCount} - Not Touching: {notTouchCount}
+						Not Touching: {notTouchCount} - Touching: {touchCount}
 					</div>
 					<div>
 						{!testing && (
@@ -196,7 +196,7 @@ const Run = ({ bindShortcut, unbindAllShortcuts }) => {
 					<div>
 						{!testing ? (
 							<>
-								{!!touchCount && !!notTouchCount && !training && (
+								{touchCount > 1 && notTouchCount > 1 && !training && (
 									<div className='btn' onClick={train}>
 										Train
 									</div>
@@ -235,7 +235,7 @@ const Run = ({ bindShortcut, unbindAllShortcuts }) => {
 					<div className='center column training-modal-contain'>
 						<h1 style={{ marginBottom: '30px', textAlign: 'center' }}>Welcome to the training area of what just may save the world!</h1>
 						<p style={{ fontWeight: 600, marginBottom: '50px' }}>
-							⦿ To be fully equipped let's make sure that CoronaBot has everything it needs to help you in this battle
+							⦿ To be fully equipped let's make sure that SmackerCove has everything it needs to help you in this battle
 							<br />
 							<br />
 							⦿ You'll want to gather images of you <b>touching</b> and <b>not touching</b> your face
@@ -244,13 +244,13 @@ const Run = ({ bindShortcut, unbindAllShortcuts }) => {
 							⦿ You can collect the data easily by pressing/holding <b>Right</b> for Touching or <b>Left</b> for not touching
 							<br />
 							<br />
-							⦿ After you're done collecting your first batch of ammo you can press <b>Train</b> to load CoronaBot with your images 
+							⦿ After you're done collecting your first batch of ammo you can press <b>Train</b> to load SmackerCove with your images 
 							<br />
 							<br />
 							⦿ Then you'll be able to <b>Test</b> to make sure it's working as it needs to
 							<br />
 							<br />
-							⦿ Last but not least press Save and then head back to the Home page to initiate CoronaBot
+							⦿ Last but not least press Save and then head back to the Home page to initiate SmackerCove
 							<br />
 							<br />
 							<br />
@@ -262,7 +262,7 @@ const Run = ({ bindShortcut, unbindAllShortcuts }) => {
 			{saveModalOpen && (
 				<CoronaConfirmModal
 					title='Share'
-					message='Do you want to upload your new trained model to improve the CoronaBot? This is only json text not your actual images'
+					message='Do you want to upload your new trained model to improve the SmackerCove? This is only json text not your actual images'
 					proceed={() => save(true)}
 					cancel={() => save(false)}
 				/>

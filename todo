@@ -1,0 +1,9 @@
+Inside libs/ml5/src/imageclassifier under loadModelFrom
+
+We need to still figure out how to load ml5speck
+
+We also need to save the ml5specs under:
+libs/ml5/src/FeatureExtractor/Mobilenet.js  saveLocal and loadLocal
+
+
+add indexeddb info in ml5

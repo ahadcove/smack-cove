@@ -17,7 +17,7 @@ const CoronaSettings = ({ close }) => {
 	// const [apiType, setApiType] = usePersistedState('apiType', API_TYPES.SOUND);
 	const [apiType, setApiType] = usePersistedState('apiType', API_TYPES.API);
 	const [apiValue, setApiValue] = usePersistedState('apiValue', null);
-	const [minConfidence, setMinConfidence] = usePersistedState('minConfidence', 70);
+	// const [minConfidence, setMinConfidence] = usePersistedState('minConfidence', 70);
 	
 	let audioRef;
 

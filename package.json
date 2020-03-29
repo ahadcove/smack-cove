@@ -1,12 +1,12 @@
 {
-  "name": "corona-bot",
+  "name": "smack-cove",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "axios": "^0.19.2",
     "bettertimers": "0.0.13",
     "cra-template": "1.0.2",
-    "ml5": "file:libs/ml5",
+    "ml5-cove": "^0.5.1",
     "mousetrap": "^1.6.5",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
@@ -16,9 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
