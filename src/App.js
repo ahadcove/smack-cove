@@ -4,6 +4,10 @@ import Routes from './routes';
 import Nav from './components/nav/nav';
 import './App.css';
 import { Interval, Clear } from "bettertimers";
+import ReactGA from 'react-ga';
+import Footer from "./components/footer/footer";
+ReactGA.initialize('UA-161994278-2');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 let favInterval;
 
@@ -30,6 +34,7 @@ export default function App() {
     <Router>
 			<Nav />
 			<Routes />
+			<Footer />
     </Router>
   );
 }
